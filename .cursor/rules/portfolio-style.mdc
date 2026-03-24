@@ -1,0 +1,17 @@
+---
+description: Rules for building Ahmed's Portfolio with Tailwind and HTML
+globs: *.html
+---
+
+# Global Portfolio Rules
+
+- Use **Tailwind CSS** for all styling via CDN.
+- Use **Lucide Icons** for any UI icons.
+- Ensure the layout is **Responsive** (mobile-first).
+- Primary Color: **Indigo-600**.
+- Theme: **Dark Mode** by default.
+
+# Data Source
+- Always prioritize data from `Ahmed CV.pdf`[cite: 1, 35].
+- My name is **Ahmed Riyad Mohamed**[cite: 1].
+- My role is **Frontend Developer**[cite: 2].
