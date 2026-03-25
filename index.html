@@ -8,12 +8,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <style>
+        :root {
+            --accent-primary: #22d3ee; 
+            --accent-secondary: #d946ef; 
+        }
+    
+        .orange-theme {
+            --accent-primary: #fbbf24; 
+            --accent-secondary: #f97316; 
+        }
+    
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; overflow-x: hidden; }
+        
         .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .text-gradient { background: linear-gradient(90deg, #22d3ee, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .text-gradient { 
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        
+        .text-cyan-400, .text-cyan-600 { color: var(--accent-primary) !important; }
+        .bg-cyan-600, .bg-cyan-500 { background-color: var(--accent-primary) !important; }
+        .border-cyan-400 { border-color: var(--accent-primary) !important; }
+        
         .hero-blob { position: absolute; filter: blur(80px); opacity: 0.2; z-index: -1; }
-        .profile-border { position: relative; padding: 5px; background: linear-gradient(45deg, #22d3ee, #d946ef); border-radius: 2rem; transition: transform 0.5s ease; }
+        .profile-border { 
+            position: relative; padding: 5px; 
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary)); 
+            border-radius: 2rem; transition: transform 0.5s ease; 
+        }
         .profile-border:hover { transform: scale(1.05) rotate(2deg); }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
@@ -23,16 +50,41 @@
     <div class="hero-blob w-[500px] h-[500px] bg-cyan-500 top-[-10%] left-[-10%]"></div>
     <div class="hero-blob w-[400px] h-[400px] bg-fuchsia-500 bottom-[-5%] right-[-5%]"></div>
 
-    <nav class="fixed top-0 w-full z-50 glass-card py-4">
+    <nav class="fixed top-0 w-full z-[100] glass-card py-4 transition-all duration-300" id="main-nav">
         <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <span class="font-bold text-2xl tracking-tighter text-cyan-400">AHMED<span class="text-white">.R</span></span>
-            <div class="hidden md:flex space-x-10 text-sm font-semibold uppercase tracking-widest">
+            <a href="#" class="font-bold text-2xl tracking-tighter text-cyan-400 flex-shrink-0">
+                AHMED<span class="text-white">.R</span>
+            </a>
+    
+            <div class="hidden md:flex space-x-8 lg:space-x-10 text-[11px] font-semibold uppercase tracking-[0.2em]">
                 <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
                 <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
                 <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
                 <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
                 <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
             </div>
+    
+            <div class="flex items-center gap-3 sm:gap-5">
+                <div id="theme-switch" class="text-xl text-slate-400 hover:text-white cursor-pointer transition-all">
+                    <i class="fas fa-palette"></i>
+                </div>
+            
+                <div class="text-xl sm:text-2xl text-fuchsia-500 hover:text-cyan-400 transition-all duration-500 hover:scale-125 cursor-pointer">
+                    <i class="fas fa-laptop-code animate-pulse"></i>
+                </div>
+                
+                <button id="menu-toggle" class="md:hidden text-white text-2xl p-1">
+                    <i class="fas fa-bars-staggered" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+    
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#020617]/95 backdrop-blur-xl border-b border-white/10 px-6 py-8 flex flex-col gap-6 text-center shadow-2xl">
+            <a href="#about" class="mobile-link text-lg font-semibold tracking-widest hover:text-cyan-400">ABOUT</a>
+            <a href="#experience" class="mobile-link text-lg font-semibold tracking-widest hover:text-cyan-400">EXPERIENCE</a>
+            <a href="#skills" class="mobile-link text-lg font-semibold tracking-widest hover:text-cyan-400">SKILLS</a>
+            <a href="#projects" class="mobile-link text-lg font-semibold tracking-widest hover:text-cyan-400">PROJECTS</a>
+            <a href="#contact" class="mobile-link text-lg font-semibold tracking-widest hover:text-cyan-400">CONTACT</a>
         </div>
     </nav>
 
@@ -63,35 +115,74 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="md:col-span-2 glass-card p-10 rounded-[2.5rem]" data-aos="fade-up">
-                    <h2 class="text-3xl font-bold text-white mb-6">About <span class="text-cyan-400">Me</span></h2>
-                    <p class="text-slate-400 leading-relaxed text-lg mb-6">
-                        I am a Computer and Systems Engineering student at <span class="text-white font-semibold">Zagazig University</span> (Class of 2025). My journey is driven by a deep interest in Frontend Development and a mission to make coding accessible and engaging through education.
+                    <h2 class="text-3xl font-bold text-white mb-6">About <span class="text-gradient">Me</span></h2>
+                    <p class="text-slate-300 leading-relaxed text-lg mb-6">
+                        As a <span class="text-white font-semibold">Computer & Systems Engineer</span>, I specialize in building scalable, interactive web applications. Currently, I am expanding my technical depth through the <span class="text-cyan-400">ITI 9-Month Open Source Program (Intake 46)</span>, focusing on modern Frontend ecosystems.
                     </p>
                     <p class="text-slate-400 leading-relaxed text-lg">
-                        Beyond building interfaces with <span class="text-white">React</span> and <span class="text-white">Tailwind</span>, I specialize in mentoring the next generation of developers, having led numerous rounds of Harvard's CS50x at the ITI Suez Canal branch.
+                        My expertise bridges the gap between <span class="text-white">React Development</span> and educational leadership. From being a <span class="text-white font-medium">NASA Space Apps Local Winner</span> to mentoring 250+ students, I strive to blend technical excellence with real-world impact.
                     </p>
                 </div>
+    
                 <div class="space-y-6">
-                    <div class="glass-card p-8 rounded-[2.5rem] flex items-center gap-5" data-aos="fade-left">
-                        <div class="text-4xl text-fuchsia-400"><i class="fas fa-university"></i></div>
+                    <div class="glass-card p-8 rounded-[2.5rem] flex items-center gap-5 hover:scale-105 transition-transform" data-aos="fade-left">
+                        <div class="text-4xl text-fuchsia-400"><i class="fas fa-microchip"></i></div>
                         <div>
-                            <h4 class="text-white font-bold">Education</h4>
-                            <p class="text-sm text-slate-500">B.Sc. in Computer Engineering</p>
+                            <h4 class="text-white font-bold">Specialization</h4>
+                            <p class="text-sm text-slate-500 italic">Systems & SW Engineering</p>
                         </div>
                     </div>
-                    <div class="glass-card p-8 rounded-[2.5rem] flex items-center gap-5" data-aos="fade-left" data-aos-delay="100">
-                        <div class="text-4xl text-cyan-400"><i class="fas fa-award"></i></div>
+    
+                    <div class="glass-card p-8 rounded-[2.5rem] flex items-center gap-5 hover:scale-105 transition-transform" data-aos="fade-left" data-aos-delay="100">
+                        <div class="text-4xl text-cyan-400"><i class="fas fa-trophy"></i></div>
                         <div>
                             <h4 class="text-white font-bold">NASA Winner</h4>
-                            <p class="text-sm text-slate-500">Space Apps 2024 Nominee</p>
+                            <p class="text-sm text-slate-500">Space Apps Cairo 2024</p>
                         </div>
                     </div>
-                    <div class="glass-card p-8 rounded-[2.5rem] flex items-center gap-5" data-aos="fade-left" data-aos-delay="200">
-                        <div class="text-4xl text-green-400"><i class="fas fa-users"></i></div>
+    
+                    <div class="glass-card p-8 rounded-[2.5rem] flex items-center gap-5 hover:scale-105 transition-transform" data-aos="fade-left" data-aos-delay="200">
+                        <div class="text-4xl text-green-400"><i class="fas fa-rocket"></i></div>
                         <div>
-                            <h4 class="text-white font-bold">250+ Students</h4>
-                            <p class="text-sm text-slate-500">Mentored at ITI</p>
+                            <h4 class="text-white font-bold">Future Goal</h4>
+                            <p class="text-sm text-slate-500">Full-Stack Development</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-24 px-6 relative overflow-hidden bg-slate-900/10">
+        <div class="max-w-6xl mx-auto container">
+            <h2 class="text-4xl font-bold mb-16 text-center text-white" data-aos="fade-up">
+                Educational <span class="text-gradient">Background</span>
+            </h2>
+    
+            <div class="glass-card p-10 rounded-[2.5rem] border border-white/5 hover:border-cyan-500/30 transition-all group" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                    <div class="flex items-center gap-8">
+                        
+                        <div class="w-24 h-24 bg-white/10 rounded-3xl flex items-center justify-center p-2 border border-white/10 flex-shrink-0 shadow-lg overflow-hidden">
+                            <img src="zagazig-university.png" 
+                                 alt="Zagazig University" 
+                                 class="w-full h-full object-contain brightness-105 contrast-110 transform transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">Bachelor of Computers & Systems Engineering</h3>
+                            <p class="text-slate-400 text-lg font-medium">Zagazig University, Faculty of Engineering</p>
+                            
+                            <div class="flex gap-3 mt-4">
+                                <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-500 border border-white/10 uppercase font-bold tracking-widest">Full Time Student</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 rounded-full text-[10px] text-cyan-400 border border-cyan-500/20 uppercase font-bold tracking-widest">Certified Engineer</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 px-8 py-5 rounded-[2rem] border border-white/5 text-center min-w-[150px] w-full md:w-auto shadow-inner">
+                        <span class="text-cyan-400 font-bold text-2xl block">2020 — 2025</span>
+                        <span class="text-slate-500 text-[11px] uppercase tracking-[0.2em] mt-1 block">Graduated</span>
                     </div>
                 </div>
             </div>
@@ -100,20 +191,130 @@
 
     <section id="experience" class="py-32 px-6">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-16 text-center text-white" data-aos="fade-up">Professional <span class="text-cyan-400">Journey</span></h2>
-            <div class="glass-card p-10 rounded-[2.5rem] relative group" data-aos="fade-up">
-                <div class="absolute top-0 right-0 p-8 text-slate-700 text-6xl font-bold">01</div>
-                <h3 class="text-2xl font-bold text-white mb-2">Programming Instructor</h3>
-                <p class="text-cyan-400 font-medium mb-6 underline">ITI Suez Canal Branch | Dec 2023 - Sep 2025</p>
-                <ul class="space-y-4 text-slate-400 max-w-3xl">
-                    <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Explained C, C++, Python, SQL, and Web Development for 10+ rounds of CS50x.</li>
-                    <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Delivered 30+ programming sessions for students of various age groups.</li>
-                    <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Managed attendance for 250+ students and reviewed over 100 assignments.</li>
-                    <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Prepared 10+ lectures and created 30+ assessment forms to optimize learning.</li>
-                </ul>
+            <h2 class="text-4xl font-bold mb-16 text-center text-white" data-aos="fade-up">
+                Professional <span class="text-cyan-400">Journey</span>
+            </h2>
+    
+            <div class="swiper experienceSwiper pb-12" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide">
+                        <div class="glass-card p-10 rounded-[2.5rem] relative group">
+                            <div class="absolute top-0 right-0 p-8 text-slate-700 text-6xl md:text-8xl font-bold group-hover:text-cyan-500/20 transition-colors">01</div>
+                            
+                            <div class="flex items-center gap-6 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 p-2 flex-shrink-0">
+                                    <img src="iti zag.jpeg" alt="ITI" class="w-full h-full object-contain">
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-1">ITI 9-Month Program</h3>
+                                    <p class="text-cyan-400 font-medium underline">Full-Stack Track | Oct 2025 - Jul 2026</p>
+                                </div>
+                            </div>
+    
+                            <ul class="space-y-4 text-slate-400 max-w-3xl">
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Intensive professional training focused on Full-Stack Software Engineering and Open-Source technologies.</li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Mastering React, Next.js, Node.js, and MongoDB with production-oriented workflows.</li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Applying Agile methodologies and version control to build scalable web applications.</li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                    <div class="swiper-slide">
+                        <div class="glass-card p-10 rounded-[2.5rem] relative group">
+                            <div class="absolute top-0 right-0 p-8 text-slate-700 text-6xl md:text-8xl font-bold group-hover:text-fuchsia-500/20 transition-colors">02</div>
+                            
+                            <div class="flex items-center gap-6 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 p-2 flex-shrink-0">
+                                    <img src="iti suez.jpeg" alt="ITI Suez" class="w-full h-full object-contain">
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-1">Programming Instructor</h3>
+                                    <p class="text-fuchsia-400 font-medium underline">ITI Suez Canal Branch | Dec 2023 - Sep 2025</p>
+                                </div>
+                            </div>
+    
+                            <ul class="space-y-4 text-slate-400 max-w-3xl">
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-fuchsia-500 mt-1"></i> Mentored 250+ students in CS50x and programming fundamentals (C, C++, Python, SQL).</li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-fuchsia-500 mt-1"></i> Delivered 30+ sessions and managed course materials for various age groups.</li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-fuchsia-500 mt-1"></i> Reviewed 100+ assignments and prepared 40+ educational resources.</li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                    <div class="swiper-slide">
+                        <div class="glass-card p-10 rounded-[2.5rem] relative group">
+                            <div class="absolute top-0 right-0 p-8 text-slate-700 text-6xl md:text-8xl font-bold group-hover:text-cyan-500/20 transition-colors">03</div>
+                            
+                            <div class="flex items-center gap-6 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 p-2 flex-shrink-0">
+                                    <img src="route.jpeg" alt="Route" class="w-full h-full object-contain">
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white mb-1">Frontend Developer Trainee</h3>
+                                    <p class="text-cyan-400 font-medium underline">Route Academy | Jul 2024 - Jan 2025</p>
+                                </div>
+                            </div>
+    
+                            <ul class="space-y-4 text-slate-400 max-w-3xl">
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Completed intensive 6-month training on responsive and interactive React applications.</li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Expert use of JavaScript (ES6+), TypeScript, Tailwind CSS, and SASS.</li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-cyan-500 mt-1"></i> Focused on building scalable UI components and state management.</li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="swiper-pagination !bottom-0"></div>
             </div>
         </div>
     </section>
+
+    <section id="services" class="py-32 px-6 bg-slate-900/50">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4 text-white" data-aos="fade-up">Services <span class="text-gradient">Offered</span></h2>
+            <p class="text-slate-400 mb-16 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                I provide specialized technical solutions tailored to modern web standards and engineering principles.
+            </p>
+    
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-[2.5rem] border border-white/5 hover:border-cyan-500/50 transition-all group" data-aos="zoom-in">
+                    <div class="w-14 h-14 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-2xl mb-8 mx-auto group-hover:bg-cyan-500 group-hover:text-white transition-all">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Frontend Development</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300">
+                        Building responsive, high-performance user interfaces using React, Next.js, and Tailwind CSS with a focus on UX/UI.
+                    </p>
+                </div>
+    
+                <div class="glass-card p-10 rounded-[2.5rem] border border-white/5 hover:border-fuchsia-500/50 transition-all group relative" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-fuchsia-500/10 text-fuchsia-400 rounded-2xl flex items-center justify-center text-2xl mb-8 mx-auto group-hover:bg-fuchsia-500 group-hover:text-white transition-all">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Full-Stack Solutions</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300">
+                        End-to-end web applications combining robust Node.js backends with scalable database architectures (MongoDB/SQL).
+                    </p>
+                </div>
+    
+                <div class="glass-card p-10 rounded-[2.5rem] border border-white/5 hover:border-cyan-500/50 transition-all group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-2xl mb-8 mx-auto group-hover:bg-cyan-500 group-hover:text-white transition-all">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Technical Mentoring</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300">
+                        Guiding students through CS fundamentals and programming logic, leveraging my experience as an ITI Instructor.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .swiper-pagination-bullet { background: #475569 !important; opacity: 1; }
+        .swiper-pagination-bullet-active { background: #22d3ee !important; width: 25px; border-radius: 5px; transition: all 0.3s; }
+    </style>
 
     <section id="skills" class="py-32 bg-slate-900/30 px-6">
         <div class="max-w-6xl mx-auto">
@@ -145,46 +346,136 @@
 
     <section id="projects" class="py-32 px-6">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-2 text-center text-white" data-aos="fade-up">Creative <span class="text-gradient">Portfolio</span></h2>
-            <p class="text-center text-slate-500 mb-16" data-aos="fade-up">Engineering solutions through clean code.</p>
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="glass-card overflow-hidden rounded-[2.5rem] group" data-aos="fade-right">
-                    <div class="p-10">
+            <h2 class="text-4xl font-bold mb-2 text-center text-white" data-aos="fade-up">
+                Featured <span class="text-gradient">Projects</span>
+            </h2>
+            <p class="text-center text-slate-500 mb-16" data-aos="fade-up">
+                A showcase of my latest work in web development and engineering solutions.
+            </p>
+    
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="glass-card overflow-hidden rounded-[2.5rem] group flex flex-col" data-aos="fade-up">
+                    <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6 text-cyan-400">
                             <i class="fas fa-graduation-cap text-3xl"></i>
-                            <div class="flex gap-4">
+                            <div class="flex gap-4 text-xl">
                                 <a href="https://github.com/AhmedDev02/NextGenEdu" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
-                        <h3 class="text-3xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">NextGen Edu</h3>
-                        <p class="text-slate-400 mb-8 leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">NextGen Edu</h3>
+                        
+                        <div class="mb-6 overflow-hidden rounded-2xl border border-white/10">
+                            <img src="nextgen.png" alt="NextGen Project" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+    
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed">
                             A centralized Academic Management System using React, Node.js, and RFID to automate enrollment and attendance processes.
                         </p>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-xs">React</span>
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-xs">Node.js</span>
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-xs">RFID</span>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">React</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">Node.js</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">RFID</span>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card overflow-hidden rounded-[2.5rem] group" data-aos="fade-left">
-                    <div class="p-10 text-right">
-                        <div class="flex justify-between items-start mb-6 text-fuchsia-400 flex-row-reverse">
+    
+                <div class="glass-card overflow-hidden rounded-[2.5rem] group flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-8 flex-1">
+                        <div class="flex justify-between items-start mb-6 text-fuchsia-400">
                             <i class="fas fa-utensils text-3xl"></i>
-                            <div class="flex gap-4">
+                            <div class="flex gap-4 text-xl">
                                 <a href="https://github.com/AhmedRiyad21/Yummy" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
                                 <a href="https://ahmedriyad21.github.io/Yummy/" target="_blank" class="hover:text-white transition-colors"><i class="fas fa-external-link-alt"></i></a>
                             </div>
                         </div>
-                        <h3 class="text-3xl font-bold text-white mb-4 group-hover:text-fuchsia-400 transition-colors">Yummy Website</h3>
-                        <p class="text-slate-400 mb-8 leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-fuchsia-400 transition-colors">Yummy Website</h3>
+                        
+                        <div class="mb-6 overflow-hidden rounded-2xl border border-white/10">
+                            <img src="yummy.png" alt="Yummy Project" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+    
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed">
                             Interactive restaurant platform with real-time API data fetching, menu filters, and high-end animations.
                         </p>
-                        <div class="flex flex-wrap gap-3 justify-end">
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-xs">JavaScript</span>
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-xs">API</span>
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-xs">Tailwind</span>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">JavaScript</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">API</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">Tailwind</span>
                         </div>
+                    </div>
+                </div>
+    
+                <div class="glass-card overflow-hidden rounded-[2.5rem] group flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-8 flex-1">
+                        <div class="flex justify-between items-start mb-6 text-amber-400">
+                            <i class="fas fa-user-tie text-3xl"></i>
+                            <div class="flex gap-4 text-xl">
+                                <a href="https://github.com/AhmedRiyad21/Daniels" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="https://ahmedriyad21.github.io/Daniels/" target="_blank" class="hover:text-white transition-colors"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-amber-400 transition-colors">Daniels Portfolio</h3>
+                        
+                        <div class="mb-6 overflow-hidden rounded-2xl border border-white/10">
+                            <img src="daniels.png" alt="Daniels Project" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+    
+                        <p class="text-slate-400 mb-6 text-sm leading-relaxed">
+                            A sleek, responsive personal portfolio website focusing on clean typography and smooth transitions, built with HTML/CSS.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">HTML5</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">CSS3</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-slate-300">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates" class="py-32 px-6 bg-slate-900/30">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center text-white" data-aos="fade-up">
+                Academic <span class="text-gradient">Achievements</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-[2rem] hover:border-cyan-500/50 transition-all group" data-aos="fade-up">
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-20 h-20 rounded-2xl bg-white/10 border border-white/10 flex-shrink-0 flex items-center justify-center p-3">
+                            <img src="Harvard.png" alt="Harvard" class="w-full h-full object-contain brightness-110">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-2xl text-white mb-1">CS50x: Computer Science</h4>
+                            <p class="text-cyan-400 font-medium">Harvard University</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-white/10 pt-6">
+                        <span class="text-xs text-slate-400 font-mono">Issued: 2024</span>
+                        <a href="https://certificates.cs50.io/822f9a53-4fd9-4339-b4fd-10518e1c6e73.pdf?size=letter" target="_blank" class="text-sm font-bold text-white hover:text-cyan-400 flex items-center gap-2 transition-colors">
+                            View Certificate <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="glass-card p-8 rounded-[2rem] hover:border-fuchsia-500/50 transition-all group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-20 h-20 rounded-2xl bg-white/10 border border-white/10 flex-shrink-0 flex items-center justify-center p-4">
+                            <img src="route.jpeg" alt="Route" class="w-full h-full object-contain brightness-110">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-2xl text-white mb-1">Frontend Development</h4>
+                            <p class="text-fuchsia-400 font-medium text-sm">Route Academy</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-white/10 pt-6">
+                        <span class="text-xs text-slate-400 font-mono">6-Month Intensive</span>
+                        <a href="https://drive.google.com/file/d/1PQFpr8yOgaF9EU2M_ocy2zKgRknd4pZs/preview" target="_blank" class="text-sm font-bold text-white hover:text-fuchsia-400 flex items-center gap-2 transition-colors">
+                            View Certificate <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -211,8 +502,55 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init({ duration: 1000, once: true }); </script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+    
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.replace('fa-xmark', 'fa-bars-staggered');
+            } else {
+                menuIcon.classList.replace('fa-bars-staggered', 'fa-xmark');
+            }
+        });
+    
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.replace('fa-xmark', 'fa-bars-staggered');
+            });
+        });
+    </script>
+    <script>
+    const themeSwitch = document.getElementById('theme-switch');
+
+    themeSwitch.addEventListener('click', () => {
+        document.body.classList.toggle('orange-theme');
+        
+        if(document.body.classList.contains('orange-theme')) {
+            themeSwitch.style.color = '#fbbf24';
+        } else {
+            themeSwitch.style.color = '#22d3ee';
+        }
+    });
+    </script>
+    <script>
+        var experienceSwiper = new Swiper(".experienceSwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+        });
     </script>
 </body>
 </html>
