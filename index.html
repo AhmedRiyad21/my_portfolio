@@ -71,6 +71,14 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
         
+        [data-aos] {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            perspective: 1000;
+            will-change: transform, opacity;
+        }
+
         @media (max-width: 768px) {
             .experience-number { 
                 display: none !important; 
@@ -556,7 +564,21 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // 1. Initialize AOS (Animations)
-    AOS.init({ duration: 800, once: true });
+    AOS.init({
+    duration: 600, 
+    once: true,
+    offset: 50,          
+    delay: 0,            
+    easing: 'ease-out',  
+    mirror: false,
+    anchorPlacement: 'top-bottom', 
+    });
+
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            AOS.refresh();
+        }, 500); 
+    });
 
     // 2. Mobile Menu Logic
     const menuToggle = document.getElementById('menu-toggle');
