@@ -553,65 +553,54 @@
     </div>
 </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script> 
-    
-    AOS.init({
-    duration: 600, 
-    once: true,    
-    offset: 50,    
-    disable: 'mobile'
- }); 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // 1. Initialize AOS (Animations)
+    AOS.init({ duration: 800, once: true });
 
-    </script>
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-    
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                menuIcon.classList.replace('fa-xmark', 'fa-bars-staggered');
-            } else {
-                menuIcon.classList.replace('fa-bars-staggered', 'fa-xmark');
-            }
+    // 2. Mobile Menu Logic
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    function toggleMenu() {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        menuIcon.classList.toggle('fa-xmark', !isHidden);
+        menuIcon.classList.toggle('fa-bars-staggered', isHidden);
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking any link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.replace('fa-xmark', 'fa-bars-staggered');
         });
-    
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.replace('fa-xmark', 'fa-bars-staggered');
-            });
-        });
-    </script>
-    <script>
+    });
+
+    // 3. Theme Switcher Logic
     const themeSwitch = document.getElementById('theme-switch');
 
     themeSwitch.addEventListener('click', () => {
-        document.body.classList.toggle('orange-theme');
-        
-        if(document.body.classList.contains('orange-theme')) {
-            themeSwitch.style.color = '#fbbf24';
-        } else {
-            themeSwitch.style.color = '#22d3ee';
-        }
+        const isOrange = document.body.classList.toggle('orange-theme');
+        themeSwitch.style.color = isOrange ? '#fbbf24' : '#22d3ee';
     });
-    </script>
-    <script>
-        var experienceSwiper = new Swiper(".experienceSwiper", {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-        });
-    </script>
+
+    // 4. Experience Swiper Initialization
+    var experienceSwiper = new Swiper(".experienceSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+    });
+</script>
 </body>
 </html>
